@@ -6,15 +6,15 @@ Templated-docs
 .. image:: https://img.shields.io/pypi/v/templated_docs.svg
         :target: https://pypi.python.org/pypi/templated_docs
 
-.. image:: https://img.shields.io/travis/alexmorozov/templated_docs.svg
-        :target: https://travis-ci.org/alexmorozov/templated_docs
+.. image:: https://img.shields.io/travis/alexmorozov/templated-docs.svg
+        :target: https://travis-ci.org/alexmorozov/templated-docs
 
 .. image:: https://readthedocs.org/projects/templated-docs/badge/?version=latest
         :target: https://templated-docs.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://requires.io/github/alexmorozov/templated_docs/requirements.svg?branch=master
-        :target: https://requires.io/github/alexmorozov/templated_docs/requirements?branch=master
+.. image:: https://requires.io/github/alexmorozov/templated-docs/requirements.svg?branch=master
+        :target: https://requires.io/github/alexmorozov/templated-docs/requirements?branch=master
         :alt: Dependencies
 
 

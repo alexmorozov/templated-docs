@@ -22,11 +22,11 @@ test_requirements = [
 setup(
     name='templated_docs',
     version='0.1.0',
-    description="Templates-docs generates your custom documents if any format supported by OpenOffice.org.",
+    description="Templates-docs generates your custom documents if any format supported by LibreOffice",
     long_description=readme + '\n\n' + history,
     author="Alex Morozov",
     author_email='alex@morozov.ca',
-    url='https://github.com/alexmorozov/templated_docs',
+    url='https://github.com/alexmorozov/templated-docs',
     packages=[
         'templated_docs',
     ],
@@ -42,9 +42,6 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
