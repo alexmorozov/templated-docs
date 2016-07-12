@@ -22,10 +22,9 @@ deploy:
     repo: alexmorozov/templated_docs
     tags: true
 env:
-  - TOXENV=py33
-  - TOXENV=py34
   - TOXENV=py35
+  - TOXENV=flake8
 install: pip install -U tox
 language: python
-python: 2.7
+python: 3.5
 script: tox -e ${TOXENV}
