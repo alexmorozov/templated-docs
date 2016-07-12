@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-__version__ = '0.1.0'
-
 import os.path
 import re
 from tempfile import NamedTemporaryFile
@@ -18,6 +16,8 @@ from pylokit import Office
 
 import logging
 log = logging.getLogger(__name__)
+
+__version__ = '0.1.0'
 
 
 IMAGES_CONTEXT_KEY = '_templated_docs_imgs'
