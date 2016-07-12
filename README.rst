@@ -44,6 +44,7 @@ put it in your Django templates folder. It should look something like this:
 Then write a view to generate documents from this template:
 
     .. code-block:: python
+
         from templated_docs import fill_template
         from templated_docs.http import FileResponse
 
