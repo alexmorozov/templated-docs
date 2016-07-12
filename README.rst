@@ -29,7 +29,7 @@ LibreOffice: texts, spreadsheets, presentations etc.
 Requirements
 ------------
 
-* Django >= 1.9
+* Django >= 1.8
 * A recent LibreOffice version (>=4.3.0) supporting LibreOfficeKit API.
 * Pylokit_ library to bridge to LibreOffice
 
