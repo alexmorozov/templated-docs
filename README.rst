@@ -18,7 +18,8 @@ Templated-docs
         :alt: Dependencies
 
 
-Templated-docs generates templated documents within Django in any format supported by LibreOffice.
+Generate templated documents within Django in any format supported by
+LibreOffice: texts, spreadsheets, presentations etc.
 
 
 * Free software: MIT license
