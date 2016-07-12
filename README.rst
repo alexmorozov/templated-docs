@@ -30,20 +30,20 @@ Requirements
 
 * Django >= 1.9
 * A recent LibreOffice version (>=4.3.0) supporting LibreOfficeKit API.
-* (pylokit)[https://github.com/xrmx/pylokit] library to bridge to LibreOffice
+* Pylokit_ library to bridge to LibreOffice
 
 
 Example usage
 -------------
 
-Create a `sample.odt` document (make sure it's in OpenDocument format) and
+Create a ``sample.odt`` document (make sure it's in OpenDocument format) and
 put it in your Django templates folder. It should look something like this:
 
 .. image:: https://github.com/alexmorozov/templated-docs/raw/master/docs/document-template.png
 
 Then write a view to generate documents from this template:
 
-    ```python
+.. code-block:: python
     from templated_docs import fill_template
     from templated_docs.http import FileResponse
 
@@ -57,19 +57,21 @@ Then write a view to generate documents from this template:
         visible_filename = 'greeting.pdf'
 
         return FileResponse(filename, visible_filename)
-        ```
 
 Navigate to the url your view is connected to, and you'll see a rendered and converted document:
 
 .. image:: https://github.com/alexmorozov/templated-docs/raw/master/docs/generated-document.png
 
-For more examples, see the `examples/` subfolder in the repository. Extensive documentation is available at https://templated-docs.readthedocs.io.
+For more examples, see the ``examples/`` subfolder in the repository. Extensive documentation is available at https://templated-docs.readthedocs.io.
 
 Credits
 ---------
 
-Templated-docs was written by (Alex Morozov)[http://morozov.ca].
+Templated-docs was written by `Alex Morozov`_.
+
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _pylokit: https://github.com/xrmx/pylokit
+.. _`Alex Morozov`: http://morozov.ca
