@@ -21,14 +21,7 @@ deploy:
     condition: $TOXENV == py34
     repo: alexmorozov/templated_docs
     tags: true
-env:
-- TOXENV=py35
-- TOXENV=py34
-- TOXENV=py33
 install: pip install -U tox
 language: python
-python:
-  - 3.3
-  - 3.4
-  - 3.5
+python: 3.3
 script: tox -e ${TOXENV}
