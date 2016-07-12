@@ -43,20 +43,20 @@ put it in your Django templates folder. It should look something like this:
 
 Then write a view to generate documents from this template:
 
-.. code-block:: python
-    from templated_docs import fill_template
-    from templated_docs.http import FileResponse
+    .. code-block:: python
+        from templated_docs import fill_template
+        from templated_docs.http import FileResponse
 
-    def get_document(request):
-        """
-        A view to get a document filled with context variables.
-        """
-        context = {'user': request.user}  # Just an example
+        def get_document(request):
+            """
+            A view to get a document filled with context variables.
+            """
+            context = {'user': request.user}  # Just an example
 
-        filename = fill_template('sample.odt', context, output_format='pdf')
-        visible_filename = 'greeting.pdf'
+            filename = fill_template('sample.odt', context, output_format='pdf')
+            visible_filename = 'greeting.pdf'
 
-        return FileResponse(filename, visible_filename)
+            return FileResponse(filename, visible_filename)
 
 Navigate to the url your view is connected to, and you'll see a rendered and converted document:
 
