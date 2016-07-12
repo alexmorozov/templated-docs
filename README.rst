@@ -18,21 +18,56 @@ Templated-docs
         :alt: Dependencies
 
 
-Templated-docs generates custom documents within Django in any format supported by OpenOffice.org.
+Templated-docs generates templated documents within Django in any format supported by LibreOffice.
 
 
 * Free software: MIT license
 * Documentation: https://templated-docs.readthedocs.io.
 
 
-Features
---------
+Requirements
+------------
 
-* TODO
+* Django >= 1.9
+* A recent LibreOffice version (>=4.3.0) supporting LibreOfficeKit API.
+* [pylokit](https://github.com/xrmx/pylokit) library to bridge to LibreOffice
+
+
+Example usage
+-------------
+
+    Create a `sample.odt` document (make sure it's in OpenDocument format) and
+    put it in your Django templates folder. It should look something like this:
+
+    .. image:: https://github.com/alexmorozov/templated-docs/raw/master/docs/document-template.png
+
+    Then create a view to generate documents from this template:
+
+    :::python
+        from templated_docs import fill_template
+        from templated_docs.http import FileResponse
+
+        def get_document(request):
+            """
+            A view to get a document filled with context variables.
+            """
+            context = {'user': request.user}  # Just an example
+
+            filename = fill_template('sample.odt', context, output_format='pdf')
+            visible_filename = 'greeting.pdf'
+
+            return FileResponse(filename, visible_filename)
+
+    Navigate to the url your view is connected to, and you'll see a rendered and converted document:
+
+    .. image:: https://github.com/alexmorozov/templated-docs/raw/master/docs/generated-document.png
+
+For more examples, see the `examples/` subfolder in the repository. Extensive documentation is available at https://templated-docs.readthedocs.io.
 
 Credits
 ---------
 
+Templated-docs was written by [Alex Morozov](http://morozov.ca).
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
