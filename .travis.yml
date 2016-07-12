@@ -18,7 +18,7 @@ deploy:
       KzRRbFpGaWIvSnBFeXAxZm8vVEFFdkFCZStNUW1ZY3hTbVlOeHAyVDJDVkVSVWV2aXpYUUVXcmM9
   user: inductor
   true:
-    condition: $TOXENV == py34
+    condition: $TOXENV == py35
     repo: alexmorozov/templated_docs
     tags: true
 env:
@@ -27,4 +27,7 @@ env:
 install: pip install -U tox
 language: python
 python: 3.5
+#before_install:
+#  - sudo LO_VERSION=$LO_VERSION bash ci/linux.sh
+#sudo: required
 script: tox -e ${TOXENV}
