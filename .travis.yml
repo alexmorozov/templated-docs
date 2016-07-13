@@ -1,12 +1,16 @@
 language: python
 python: 3.5
 env:
-  - TOXENV=py27
-  - TOXENV=py34
-  - TOXENV=flake8
+  global:
+    LO_VERSION=5.1.1.3
+    LO_PATH=/opt/libreoffice5.1/program
+  matrix:
+    - TOXENV=py27
+    - TOXENV=py34
+    - TOXENV=flake8
 install: pip install -U tox
 before_install:
-  - sudo LO_VERSION=5.1.1.3 bash ci/linux.sh
+  - sudo bash ci/linux.sh
 sudo: required
 script: tox -e ${TOXENV}
 deploy:

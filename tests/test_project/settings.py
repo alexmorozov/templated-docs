@@ -16,6 +16,10 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+TEMPLATED_DOCS_LIBREOFFICE_PATH = os.environ.get(
+    'LO_PATH', '/usr/lib/libreoffice/program/')
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
