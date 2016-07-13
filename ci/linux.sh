@@ -18,10 +18,10 @@ elif [[ "$LO_VERSION" =~ ^3.[4-5].* ]]; then
     filename=LibO_${rcversion}_Linux_x86-64_install-deb_en-US
 elif [[ "$LO_VERSION" =~ ^3.* ]]; then
     urldir=https://downloadarchive.documentfoundation.org/libreoffice/old/$LO_VERSION/deb/x86_64
-    filename=LibO_${VERSION}_Linux_x86-64_install-deb_en-US
+    filename=LibO_${LO_VERSION}_Linux_x86-64_install-deb_en-US
 else
     urldir=https://downloadarchive.documentfoundation.org/libreoffice/old/$LO_VERSION/deb/x86_64
-    filename=LibreOffice_${VERSION}_Linux_x86-64_deb
+    filename=LibreOffice_${LO_VERSION}_Linux_x86-64_deb
 fi
 
 wget $urldir/${filename}.tar.gz
