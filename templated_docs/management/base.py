@@ -3,13 +3,15 @@
 import os
 
 from django.core.management.base import BaseCommand
-from django.template import Context
 
 from templated_docs import fill_template
 
 
-class Command(BaseCommand):
-    help = 'Generate a document from the specified template'
+class GenerateDocumentCommand(BaseCommand):
+    """
+    A management command which generates a document using the context specified
+    in the ``get_document_context()`` method.
+    """
 
     def add_arguments(self, parser):
         parser.add_argument('template_name', type=str)
@@ -19,12 +21,21 @@ class Command(BaseCommand):
                             help='Put the result into this file.')
 
     def handle(self, template_name, **options):
-        context = Context()
-
         output_format = options['format']
-        temp_name = fill_template(template_name, context, output_format)
+        temp_name = fill_template(
+            template_name,
+            self.get_document_context(template_name, **options),
+            output_format)
 
         out_file = options['output_file'] or temp_name
         if out_file != temp_name:
             os.rename(temp_name, out_file)
         print(out_file)
+
+    def get_document_context(self, template_name, **options):
+        """
+        Fill the context for passing in the document template.
+        """
+        raise NotImplementedError(
+            'subclasses of GenerateDocumentCommand must provide a '
+            'get_document_context() method')
