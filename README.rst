@@ -64,7 +64,7 @@ Navigate to the url your view is connected to, and you'll see a rendered and con
 
 .. image:: https://github.com/alexmorozov/templated-docs/raw/master/docs/generated-document.png
 
-For more examples, see the ``examples/`` subfolder in the repository. Extensive documentation is available at https://templated-docs.readthedocs.io.
+For more examples, see the ``examples/`` subfolder in the repository. More detailed documentation is available on https://templated-docs.readthedocs.io.
 
 Credits
 ---------
