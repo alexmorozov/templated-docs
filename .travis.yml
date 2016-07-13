@@ -18,7 +18,7 @@ deploy:
   distributions: sdist bdist_wheel
   password:
     secure: "M6mzV77Lp1YkqrWquW3BIwZxe+mF3pnxxV/eFlG/lu6gSEqqnNIGI4l8r/oGxJtVDXKAtALBBaZLJeLnwHvgtsWfkM8T8+9O5KUgAwC9XzIK5QZzFy9M/5O9q1S/z8Soh0jQMiJ8LfHiHBlMkB+f0Yjpd+LDjn/csUbucPYL0qy8sfDKkEHQxR+7N47ncJk2uKAZc5gKZRv6fxZT1SoD5zFlLGuTWGKMJh5PJpG/+enLrkTr6GntSYyY00+EiS0wuQq7N6ymlaN4nPf7vRoR/JaDGQ3LaAaDnwVFNC8cCQlTQP0gx/tcnUYwUmxfP4Ij1kZvfr+bYbEvnn4TA0g1cwap3eXMi6gkwgIh9A2NUS1SmkuhQRvgEXFaIFLyd+c1K8E/+QefI7mB+EG2EyuWo6iEJBiLiehWc+O1PuPkpak3FmZ0ayrK6AOdI0ZQ2rMPwb/Pms09v9r9qcTMLS8DIMH5P5tTmrI/4pG9nMpbhIUWkaWcuO+kSBqUGlqzEkzoPFOePUoxWXN6EAc6s5g/ndF618759vaQegJwLRhsptvHgRdyLNEn8175OBfKu20B2JA4EHDGp/O95Kla2N/U1ycO7xHkMsoPynpvvIs6LWU8tnRxeciVGoCRNWGLgKK7Nz13omiRqfuZrNFCaoV/zMF2QOWrwUG03zWZ0Vi7mHU="
-    user: inductor
+  user: inductor
   on:
     condition: $TOXENV == py34
     repo: alexmorozov/templated-docs
