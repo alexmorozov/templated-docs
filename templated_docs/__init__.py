@@ -116,10 +116,14 @@ def fill_template(template_name, context, output_format='odt'):
     dest.close()
 
     if source_extension[1:] != output_format:
-        with Office('/usr/lib/libreoffice/program/') as lo:
+        lo_path = getattr(
+            settings,
+            'TEMPLATED_DOCS_LIBREOFFICE_PATH',
+            '/usr/lib/libreoffice/program/')
+        with Office(lo_path) as lo:
             conv_file = NamedTemporaryFile(delete=False,
                                            suffix='.%s' % output_format)
-            with lo.documentLoad(dest_file.name) as doc:
+            with lo.documentLoad(str(dest_file.name)) as doc:
                 doc.saveAs(conv_file.name)
             os.unlink(dest_file.name)
         return conv_file.name
