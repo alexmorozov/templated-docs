@@ -47,6 +47,9 @@ like this:
     visible_filename = 'greeting.pdf'
     return FileResponse(filename, visible_filename)
 
+``templated_docs.fill_template(template_name, context, output_format='odt')``
+  Fill a template ``template_name`` using a ``context`` dictionary as a context, optionally converting it to the ``output_format``. Returns a filename of a generated file.
+
 
 More information
 ----------------
