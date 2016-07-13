@@ -17,6 +17,10 @@ class SampleForm(forms.Form):
     origin = forms.CharField(
         label='Where are you from?',
         initial='Some lovely place')
+    message = forms.CharField(
+        label='Your message (multiline)',
+        initial='Type here',
+        widget=forms.Textarea())
     output_format = forms.TypedChoiceField(
         label='Which document format do you want?',
         choices=FORMAT_CHOICES,
