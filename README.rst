@@ -3,7 +3,7 @@ Templated-docs
 ===============================
 
 
-.. image:: https://img.shields.io/pypi/v/templated_docs.svg
+.. image:: https://badge.fury.io/py/templated-docs.svg
         :target: https://pypi.python.org/pypi/templated_docs
 
 .. image:: https://img.shields.io/travis/alexmorozov/templated-docs.svg
