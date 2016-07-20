@@ -28,3 +28,12 @@ What subset of templating language is supported
 -----------------------------------------------
 
 Django templating language is fully supported, including filters and tags. Keep in mind, though, that in order to use custom template tags you should load them first using a standard ``{% load %}`` tag.
+
+
+Looping
+-------
+
+Generating lines in loops is supported via the standard ``{% for %}`` tag. Here's the picture that illustrates the concept:
+
+.. image:: looping-sample.png
+    :align: center
