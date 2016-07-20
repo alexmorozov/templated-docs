@@ -13,7 +13,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'pylokit==0.8.1',
-    'django>=1.9,<1.10',
+    'django>=1.8,<1.10',
 ]
 
 test_requirements = [
@@ -23,7 +23,8 @@ test_requirements = [
 setup(
     name='templated_docs',
     version='0.2.5',
-    description="Templated-docs generates templated documents in any format supported by LibreOffice",
+    description=('Templated-docs generates templated documents '
+                 'in any format supported by LibreOffice'),
     long_description=readme + '\n\n' + history,
     author="Alex Morozov",
     author_email='alex@morozov.ca',
