@@ -31,8 +31,8 @@ Requirements
 
 * Django >= 1.8
 * A recent LibreOffice version (>=4.3.0) supporting LibreOfficeKit API.
-* Pylokit_ library to bridge to LibreOffice
 
+.. include:: docs/partial/libffi-warning.rst
 
 Example usage
 -------------

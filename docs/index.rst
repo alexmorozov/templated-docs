@@ -27,6 +27,8 @@ To install templated-docs:
 2. Install a package with ``pip install templated-docs``
 3. Add ``templated_docs`` to ``INSTALLED_APPS``
 
+.. include:: partial/libffi-warning.rst
+
 Usage
 -----
 
