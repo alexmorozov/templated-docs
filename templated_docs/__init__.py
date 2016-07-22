@@ -7,7 +7,13 @@ import zipfile
 
 from django.conf import settings
 from django.template import Template
-from django.template.exceptions import TemplateDoesNotExist
+
+try:
+    # Django 1.9+
+    from django.template.exceptions import TemplateDoesNotExist
+except ImportError:
+    from django.template import TemplateDoesNotExist
+
 from django.template import Context, engines
 
 from django.utils.encoding import smart_bytes, smart_str
@@ -63,8 +69,9 @@ def find_template_file(template_name):
     """
     for loader in _get_template_loaders():
         for origin in loader.get_template_sources(template_name, None):
-            if os.path.exists(origin.name):
-                return origin.name
+            path = getattr(origin, 'name', origin)  # Django <1.9 compatibility
+            if os.path.exists(path):
+                return path
     raise TemplateDoesNotExist(template_name)
 
 

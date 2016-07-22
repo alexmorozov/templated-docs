@@ -5,8 +5,10 @@ env:
     LO_VERSION=5.1.1.3
     LO_PATH=/opt/libreoffice5.1/program
   matrix:
-    - TOXENV=py27
-    - TOXENV=py34
+    - TOXENV=py27-django18
+    - TOXENV=py27-django19
+    - TOXENV=py34-django18
+    - TOXENV=py34-django19
     - TOXENV=flake8
 install: pip install -U tox
 before_install:

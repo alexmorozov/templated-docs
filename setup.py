@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 with open('README.rst') as readme_file:
@@ -23,17 +23,13 @@ test_requirements = [
 setup(
     name='templated_docs',
     version='0.2.7',
-    description=('Templated-docs generates templated documents '
-                 'in any format supported by LibreOffice'),
+    description=('Generate PDF, MS Word and Excel documents from templates '
+                 'in Django.'),
     long_description=readme + '\n\n' + history,
     author="Alex Morozov",
     author_email='alex@morozov.ca',
     url='https://github.com/alexmorozov/templated-docs',
-    packages=[
-        'templated_docs',
-    ],
-    package_dir={'templated_docs':
-                 'templated_docs'},
+    packages=find_packages(),
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
@@ -44,6 +40,8 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
