@@ -131,7 +131,7 @@ def fill_template(template_name, context, output_format='odt'):
             conv_file = NamedTemporaryFile(delete=False,
                                            suffix='.%s' % output_format)
             with lo.documentLoad(str(dest_file.name)) as doc:
-                doc.saveAs(conv_file.name)
+                doc.saveAs(str(conv_file.name))
             os.unlink(dest_file.name)
         return conv_file.name
     else:
