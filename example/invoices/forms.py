@@ -15,4 +15,8 @@ class InvoiceForm(forms.Form):
     customer = forms.ModelChoiceField(queryset=Customer.objects.all())
     subject = forms.CharField()
     amount = forms.DecimalField()
+    model = forms.CharField(
+        required=False,
+        help_text="Optional. Absolute Path for alternative ODT template."
+    )
     format = forms.ChoiceField(choices=FORMAT_CHOICES)

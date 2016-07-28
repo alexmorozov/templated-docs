@@ -72,6 +72,9 @@ def find_template_file(template_name):
             path = getattr(origin, 'name', origin)  # Django <1.9 compatibility
             if os.path.exists(path):
                 return path
+    # allow odt templates from absolute path
+    if os.path.exists(template_name):
+        return template_name
     raise TemplateDoesNotExist(template_name)
 
 

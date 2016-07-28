@@ -13,8 +13,9 @@ def invoice_view(request):
 
     if form.is_valid():
         doctype = form.cleaned_data['format']
+        invoice_model = form.cleaned_data['model'] or 'invoices/invoice.odt'
         filename = fill_template(
-            'invoices/invoice.odt', form.cleaned_data,
+            invoice_model, form.cleaned_data,
             output_format=doctype)
         visible_filename = 'invoice.{}'.format(doctype)
 
