@@ -72,6 +72,9 @@ def find_template_file(template_name):
             path = getattr(origin, 'name', origin)  # Django <1.9 compatibility
             if os.path.exists(path):
                 return path
+    # allow odt templates from absolute path
+    if os.path.exists(template_name):
+        return template_name
     raise TemplateDoesNotExist(template_name)
 
 
@@ -97,7 +100,9 @@ def fill_template(template_name, context, output_format='odt'):
     manifest_data = ''
     for name in source.namelist():
         data = smart_str(source.read(name))
-        if name in ('content.xml', 'styles.xml'):
+        patterns = ['content.xml', 'styles.xml']
+        # check for patterns to allow objects inside doc
+        if any(x in name for x in patterns):
             template = Template(fix_inline_tags(data))
             data = template.render(context)
         elif name == 'META-INF/manifest.xml':
@@ -131,7 +136,7 @@ def fill_template(template_name, context, output_format='odt'):
             conv_file = NamedTemporaryFile(delete=False,
                                            suffix='.%s' % output_format)
             with lo.documentLoad(str(dest_file.name)) as doc:
-                doc.saveAs(conv_file.name)
+                doc.saveAs(str(conv_file.name))
             os.unlink(dest_file.name)
         return conv_file.name
     else:
