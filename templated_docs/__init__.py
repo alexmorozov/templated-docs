@@ -100,7 +100,9 @@ def fill_template(template_name, context, output_format='odt'):
     manifest_data = ''
     for name in source.namelist():
         data = smart_str(source.read(name))
-        if name in ('content.xml', 'styles.xml'):
+        patterns = ['content.xml', 'styles.xml']
+        # check for patterns to allow objects inside doc
+        if any(x in name for x in patterns):
             template = Template(fix_inline_tags(data))
             data = template.render(context)
         elif name == 'META-INF/manifest.xml':
