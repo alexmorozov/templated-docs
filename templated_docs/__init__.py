@@ -96,7 +96,10 @@ def fill_template(template_name, context, output_format='odt'):
 
     manifest_data = ''
     for name in source.namelist():
-        data = smart_str(source.read(name))
+        data = source.read(name)
+        if name.endswith('.xml'):
+            data = smart_str(data)
+
         if any(name.endswith(file) for file in ('content.xml', 'styles.xml')):
             template = Template(fix_inline_tags(data))
             data = template.render(context)
