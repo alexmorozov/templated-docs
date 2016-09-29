@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from multiprocessing import Process, Queue
 import os.path
 import re
 from tempfile import NamedTemporaryFile
@@ -75,6 +76,27 @@ def find_template_file(template_name):
     raise TemplateDoesNotExist(template_name)
 
 
+def _convert_subprocess(filename, format, result_queue):
+    """
+    Subprocess helper to convert a file via LOKit.
+
+    We need it until LO doesn't crash randomly after conversion, terminating
+    the calling process as well.
+    """
+    lo_path = getattr(
+        settings,
+        'TEMPLATED_DOCS_LIBREOFFICE_PATH',
+        '/usr/lib/libreoffice/program/')
+
+    with Office(lo_path) as lo:
+        conv_file = NamedTemporaryFile(delete=False,
+                                       suffix='.%s' % format)
+        with lo.documentLoad(filename) as doc:
+            doc.saveAs(str(conv_file.name))
+        os.unlink(filename)
+    result_queue.put(conv_file.name)
+
+
 def fill_template(template_name, context, output_format='odt'):
     """
     Fill a document with data and convert it to the requested format.
@@ -126,16 +148,10 @@ def fill_template(template_name, context, output_format='odt'):
     dest.close()
 
     if source_extension[1:] != output_format:
-        lo_path = getattr(
-            settings,
-            'TEMPLATED_DOCS_LIBREOFFICE_PATH',
-            '/usr/lib/libreoffice/program/')
-        with Office(lo_path) as lo:
-            conv_file = NamedTemporaryFile(delete=False,
-                                           suffix='.%s' % output_format)
-            with lo.documentLoad(str(dest_file.name)) as doc:
-                doc.saveAs(str(conv_file.name))
-            os.unlink(dest_file.name)
-        return conv_file.name
+        results = Queue()
+        convertor = Process(target=_convert_subprocess,
+                            args=(str(dest_file.name), output_format, results))
+        convertor.start()
+        return results.get()
     else:
         return dest_file.name
