@@ -24,7 +24,7 @@ from pylokit import Office
 import logging
 log = logging.getLogger(__name__)
 
-__version__ = '0.2.10'
+__version__ = '0.3.0'
 
 
 IMAGES_CONTEXT_KEY = '_templated_docs_imgs'
