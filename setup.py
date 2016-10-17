@@ -22,7 +22,7 @@ test_requirements = [
 
 setup(
     name='templated_docs',
-    version='0.3.0',
+    version='0.3.1',
     description=('Generate PDF, MS Word and Excel documents from templates '
                  'in Django.'),
     long_description=readme + '\n\n' + history,
