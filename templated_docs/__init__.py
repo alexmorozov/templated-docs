@@ -35,7 +35,8 @@ def _get_template_loaders():
     Get all available template loaders for the Django engine.
     """
     loaders = []
-    for loader_name in settings.TEMPLATE_LOADERS:
+
+    for loader_name in engines['django'].engine.loaders:
         loader = engines['django'].engine.find_template_loader(loader_name)
         if loader is not None and hasattr(loader, 'get_template_sources'):
             loaders.append(loader)

@@ -7,8 +7,10 @@ env:
   matrix:
     - TOXENV=py27-django18
     - TOXENV=py27-django19
+    - TOXENV=py27-django110
     - TOXENV=py34-django18
     - TOXENV=py34-django19
+    - TOXENV=py34-django110
     - TOXENV=flake8
 install: pip install -U tox
 before_install:
