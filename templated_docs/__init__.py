@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import codecs
 from multiprocessing import Process, Queue
 import os.path
 import re
@@ -22,10 +22,10 @@ from django.utils.encoding import smart_bytes, smart_str
 from pylokit import Office
 
 import logging
+
 log = logging.getLogger(__name__)
 
 __version__ = '0.3.1'
-
 
 IMAGES_CONTEXT_KEY = '_templated_docs_imgs'
 
@@ -51,6 +51,7 @@ def fix_inline_tags(content):
     broken Django constructs. To remedy that, we find all the Django tags and
     variables and fix entities inside them.
     """
+
     def repl(match):
         text = match.group(0)
         text = text.replace('<text:s/>', ' ')
@@ -112,41 +113,50 @@ def fill_template(template_name, context, output_format='odt'):
 
     source_file = find_template_file(template_name)
     source_extension = os.path.splitext(source_file)[1]
-    source = zipfile.ZipFile(source_file, 'r')
-
     dest_file = NamedTemporaryFile(delete=False, suffix=source_extension)
-    dest = zipfile.ZipFile(dest_file, 'w')
 
-    manifest_data = ''
-    for name in source.namelist():
-        data = source.read(name)
-        if name.endswith('.xml'):
-            data = smart_str(data)
+    if zipfile.is_zipfile(source_file):
+        with zipfile.ZipFile(source_file, 'r') as source:
+            with zipfile.ZipFile(dest_file, 'w') as dest:
+                manifest_data = ''
+                for name in source.namelist():
+                    data = source.read(name)
+                    if name.endswith('.xml'):
+                        data = smart_str(data)
 
-        if any(name.endswith(file) for file in ('content.xml', 'styles.xml')):
-            template = Template(fix_inline_tags(data))
-            data = template.render(context)
-        elif name == 'META-INF/manifest.xml':
-            manifest_data = data[:-20]  # Cut off the closing </manifest> tag
-            continue  # We will append it at the very end
-        dest.writestr(name, smart_bytes(data))
+                    if any(name.endswith(file) for file in (
+                        'content.xml', 'styles.xml'
+                    )):
+                        template = Template(fix_inline_tags(data))
+                        data = template.render(context)
+                    elif name == 'META-INF/manifest.xml':
+                        # Cut off the closing </manifest> tag
+                        manifest_data = data[:-20]
+                        continue  # We will append it at the very end
+                    dest.writestr(name, smart_bytes(data))
 
-    for _, image in context.dicts[0].get(IMAGES_CONTEXT_KEY, {}).items():
-        filename = os.path.basename(image.name)
-        ext = os.path.splitext(filename)[1][1:]
-        manifest_data += ('<manifest:file-entry '
-                          'manifest:media-type="image/%(ext)s" '
-                          'manifest:full-path="Pictures/%(filename)s"/>\n'
-                          ) % locals()
-        image.open()
-        dest.writestr('Pictures/%s' % filename, image.read())
-        image.close()
+                for _, image in context.dicts[0].get(
+                    IMAGES_CONTEXT_KEY, {}
+                ).items():
+                    filename = os.path.basename(image.name)
+                    ext = os.path.splitext(filename)[1][1:]
+                    manifest_data += ('<manifest:file-entry '
+                                      'manifest:media-type="image/%(ext)s" '
+                                      'manifest:full-path="Pictures/'
+                                      '%(filename)s"/>\n'
+                                      ) % locals()
+                    image.open()
+                    dest.writestr('Pictures/%s' % filename, image.read())
+                    image.close()
 
-    manifest_data += '</manifest:manifest>'
-    dest.writestr('META-INF/manifest.xml', manifest_data)
+                manifest_data += '</manifest:manifest>'
+                dest.writestr('META-INF/manifest.xml', manifest_data)
 
-    source.close()
-    dest.close()
+    else:
+        with codecs.open(source_file, 'rb', 'utf-8') as source:
+            template = Template(source.read())
+            dest_file.write(smart_bytes(template.render(context)))
+            dest_file.close()
 
     if source_extension[1:] != output_format:
         results = Queue()
