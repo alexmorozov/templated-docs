@@ -16,3 +16,11 @@ class InternalsTestCase(TestCase):
         filename = fill_template('correct_template.odt', {'name': 'John'},
                                  output_format='pdf')
         os.unlink(filename)
+
+    def test_fill_flat_correct_template(self):
+        """
+        test for flat file format fodt
+        """
+        filename = fill_template('correct_template.fodt', {'name': 'John'},
+                                 output_format='pdf')
+        os.unlink(filename)
