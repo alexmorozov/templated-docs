@@ -27,7 +27,7 @@ log = logging.getLogger(__name__)
 __version__ = '0.3.1'
 
 
-IMAGES_CONTEXT_KEY = '_templated_docs_imgs'
+IMAGES_CONTEXT_KEY = 'ootemplate_imgs'
 
 
 def _get_template_loaders():
@@ -98,7 +98,7 @@ def _convert_subprocess(filename, format, result_queue):
     result_queue.put(conv_file.name)
 
 
-def fill_template(template_name, context, output_format='odt'):
+def fill_template(template_name, context, img_category='Figure', output_format='odt'):
     """
     Fill a document with data and convert it to the requested format.
 
@@ -109,6 +109,7 @@ def fill_template(template_name, context, output_format='odt'):
         context = Context(context)
 
     context['output_format'] = output_format
+    context['img_category'] = img_category
 
     source_file = find_template_file(template_name)
     source_extension = os.path.splitext(source_file)[1]
