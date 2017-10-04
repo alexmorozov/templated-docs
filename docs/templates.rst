@@ -6,6 +6,7 @@ Supported formats
 
 .. Important::
   The templates themselves **must** be in on of the OpenDocument formats: ``.odt``, ``.ods``, ``.odp`` or ``.odg``.
+  **Images are supported in ``.odt`` only**
 
 Templated-docs can generate documents in any format LibreOffice itself supports. For the moment they are:
 
@@ -27,7 +28,8 @@ Templated-docs uses a standard Django template discovery mechanism, so you shoul
 What subset of templating language is supported
 -----------------------------------------------
 
-Django templating language is fully supported, including filters and tags. Keep in mind, though, that in order to use custom template tags you should load them first using a standard ``{% load %}`` tag.
+Django templating language is fully supported, including filters and tags, but not all filters may provide expectable result (e.g. ``safe`` filter's output is typically invisible).
+Keep in mind, though, that in order to use custom template tags you should load them first using a standard ``{% load %}`` tag.
 
 
 Looping
