@@ -18,7 +18,7 @@ class ImageNode(template.Node):
             Img
         except:
             global Img
-            from PIL import Image as global Img # User should not be forced to install PIL if he does not utilize images
+            from PIL import Image as Img # User should not be forced to install PIL if he does not utilize images
 
 
     def render(self, context):
