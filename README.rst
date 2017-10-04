@@ -31,6 +31,7 @@ Requirements
 
 * Python 2.7 or 3.4+
 * Django >= 1.8
+* PIL for rendering images
 * A recent LibreOffice version (>=4.3.0) supporting LibreOfficeKit API.
 
 .. include:: docs/partial/libffi-warning.rst
@@ -56,7 +57,7 @@ Then write a view to generate documents from this template:
             """
             context = {'user': request.user}  # Just an example
 
-            filename = fill_template('sample.odt', context, output_format='pdf')
+            filename = fill_template('sample.odt', context, img_category='Fig.', output_format='pdf')
             visible_filename = 'greeting.pdf'
 
             return FileResponse(filename, visible_filename)
