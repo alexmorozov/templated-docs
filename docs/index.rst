@@ -45,7 +45,7 @@ like this:
     A view to get a document filled with context variables.
     """
     context = {'user': request.user, 'foo': 'bar'}
-    filename = fill_template('sample.odt', context, output_format='pdf')
+    filename = fill_template('sample.odt', context, img_category='Fig.', output_format='pdf')
     visible_filename = 'greeting.pdf'
     return FileResponse(filename, visible_filename)
 
