@@ -21,20 +21,20 @@ test_requirements = [
 ]
 
 setup(
-    name='templated_docs',
-    version='0.3.1',
+    name='templateddocs',
+    version='0.3.2',
     description=('Generate PDF, MS Word and Excel documents from templates '
                  'in Django.'),
     long_description=readme + '\n\n' + history,
-    author="Alex Morozov",
-    author_email='alex@morozov.ca',
-    url='https://github.com/alexmorozov/templated-docs',
+    author="Sian Lerk Lau",
+    author_email='kiawin@gmail.com',
+    url='https://github.com/kiawin/templated-docs',
     packages=find_packages(),
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
     zip_safe=False,
-    keywords='templated_docs',
+    keywords='templateddocs',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
@@ -46,6 +46,8 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
     test_suite='tests.test_app.tests',
     tests_require=test_requirements

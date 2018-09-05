@@ -60,3 +60,9 @@ target/
 
 # LibreOffice temporary files
 ~$*.odt
+
+# PyCharm
+.idea/
+
+# pyenv
+.python-version
