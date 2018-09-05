@@ -24,7 +24,7 @@ from pylokit import Office
 import logging
 log = logging.getLogger(__name__)
 
-__version__ = '0.3.1'
+__version__ = '0.3.2'
 
 
 IMAGES_CONTEXT_KEY = '_templated_docs_imgs'
@@ -77,7 +77,7 @@ def find_template_file(template_name):
     raise TemplateDoesNotExist(template_name)
 
 
-def _convert_subprocess(filename, format, result_queue):
+def _convert_subprocess(filename, format, result_queue, options=None):
     """
     Subprocess helper to convert a file via LOKit.
 
@@ -93,16 +93,30 @@ def _convert_subprocess(filename, format, result_queue):
         conv_file = NamedTemporaryFile(delete=False,
                                        suffix='.%s' % format)
         with lo.documentLoad(filename) as doc:
-            doc.saveAs(str(conv_file.name))
+            doc.saveAs(str(conv_file.name), options=options)
         os.unlink(filename)
     result_queue.put(conv_file.name)
 
 
-def fill_template(template_name, context, output_format='odt'):
-    """
-    Fill a document with data and convert it to the requested format.
+def fill_template(template_name, context, output_format='odt', options=None):
+    """Fill a document with data and convert it to the requested format.
 
     Returns an absolute path to the generated file.
+
+    Supported output format:
+        Text documents: doc, docx, fodt, html, odt, ott, pdf, txt, xhtml, png
+        Spreadsheets: csv, fods, html, ods, ots, pdf, xhtml, xls, xlsx, png
+        Presentations: fodp, html, odg, odp, otp, pdf, potm, pot, pptx, pps, ppt, svg, swf, xhtml, png
+        Drawings: fodg, html, odg, pdf, svg, swf, xhtml, png
+
+    More on filter options, https://wiki.openoffice.org/wiki/Documentation/DevGuide/Spreadsheets/Filter_Options
+
+    :param template_name: the path to template, in OpenDocument format
+    :param context: the context to be used to inject content
+    :param output_format: the output format
+    :param options: value of filterOptions in libreofficekit
+
+    :return:
     """
 
     if not isinstance(context, Context):
@@ -151,7 +165,7 @@ def fill_template(template_name, context, output_format='odt'):
     if source_extension[1:] != output_format:
         results = Queue()
         convertor = Process(target=_convert_subprocess,
-                            args=(str(dest_file.name), output_format, results))
+                            args=(str(dest_file.name), output_format, results, options))
         convertor.start()
         return results.get()
     else:
