@@ -13,7 +13,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'pylokit==0.8.1',
-    'django>=1.8,<1.11',
+    'django>=1.8,<=1.11',
 ]
 
 test_requirements = [
