@@ -25,5 +25,5 @@ deploy:
   user: inductor
   on:
     condition: $TOXENV == py34-django19
-    repo: alexmorozov/templated-docs
+    repo: kiawin/templated-docs
     tags: true

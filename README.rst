@@ -4,17 +4,17 @@ Templated-docs
 
 
 .. image:: https://badge.fury.io/py/templated-docs.svg
-        :target: https://pypi.python.org/pypi/templated_docs
+        :target: https://pypi.python.org/pypi/templateddocs
 
-.. image:: https://img.shields.io/travis/alexmorozov/templated-docs.svg
-        :target: https://travis-ci.org/alexmorozov/templated-docs
+.. image:: https://img.shields.io/travis/kiawin/templated-docs.svg
+        :target: https://travis-ci.org/kiawin/templated-docs
 
 .. image:: https://readthedocs.org/projects/templated-docs/badge/?version=latest
         :target: https://templated-docs.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://requires.io/github/alexmorozov/templated-docs/requirements.svg?branch=master
-        :target: https://requires.io/github/alexmorozov/templated-docs/requirements?branch=master
+.. image:: https://requires.io/github/kiawin/templated-docs/requirements.svg?branch=master
+        :target: https://requires.io/github/kiawin/templated-docs/requirements?branch=master
         :alt: Dependencies
 
 
@@ -41,7 +41,7 @@ Example usage
 Create a ``sample.odt`` document (make sure it's in OpenDocument format) and
 put it in your Django templates folder. It should look something like this:
 
-.. image:: https://github.com/alexmorozov/templated-docs/raw/master/docs/document-template.png
+.. image:: https://github.com/kiawin/templated-docs/raw/master/docs/document-template.png
 
 Then write a view to generate documents from this template:
 
@@ -63,7 +63,7 @@ Then write a view to generate documents from this template:
 
 Navigate to the url your view is connected to, and you'll see a rendered and converted document:
 
-.. image:: https://github.com/alexmorozov/templated-docs/raw/master/docs/generated-document.png
+.. image:: https://github.com/kiawin/templated-docs/raw/master/docs/generated-document.png
 
 For more examples, see the ``examples/`` subfolder in the repository. More detailed documentation is available on https://templated-docs.readthedocs.io.
 
@@ -71,6 +71,8 @@ Credits
 ---------
 
 Templated-docs was written by `Alex Morozov`_.
+
+As the repository is left idle for 2 years, `Sian Lerk Lau` has forked and resume the task of updating the module.
 
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
