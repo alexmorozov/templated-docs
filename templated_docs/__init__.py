@@ -70,7 +70,7 @@ def find_template_file(template_name):
     load a template in memory, because we'll deal with it ourselves.
     """
     for loader in _get_template_loaders():
-        for origin in loader.get_template_sources(template_name, None):
+        for origin in loader.get_template_sources(template_name):
             path = getattr(origin, 'name', origin)  # Django <1.9 compatibility
             if os.path.exists(path):
                 return path
