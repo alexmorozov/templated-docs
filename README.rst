@@ -13,10 +13,6 @@ Templated-docs
         :target: https://templated-docs.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://requires.io/github/kiawin/templated-docs/requirements.svg?branch=master
-        :target: https://requires.io/github/kiawin/templated-docs/requirements?branch=master
-        :alt: Dependencies
-
 
 Generate templated documents within Django in any format supported by
 LibreOffice: texts, spreadsheets, presentations etc.
@@ -32,8 +28,6 @@ Requirements
 * Python 2.7 or 3.4+
 * Django >= 1.8
 * A recent LibreOffice version (>=4.3.0) supporting LibreOfficeKit API.
-
-.. include:: docs/partial/libffi-warning.rst
 
 Example usage
 -------------
@@ -72,7 +66,7 @@ Credits
 
 Templated-docs was written by `Alex Morozov`_.
 
-As the repository is left idle for 2 years, `Sian Lerk Lau` has forked and resume the task of updating the module.
+As the repository is left idle for 2 years, `Sian Lerk Lau`_ has forked and resume the task of updating the module.
 
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
@@ -80,3 +74,4 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
 .. _pylokit: https://github.com/xrmx/pylokit
 .. _`Alex Morozov`: http://morozov.ca
+.. _`Sian Lerk Lau`: https://github.com/kiawin
