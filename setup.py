@@ -13,7 +13,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'pylokit==0.8.1',
-    'django>=1.8,<=1.11',
+    'django>=1.8,<1.12',
 ]
 
 test_requirements = [
@@ -22,7 +22,7 @@ test_requirements = [
 
 setup(
     name='templateddocs',
-    version='0.3.2',
+    version='0.3.3',
     description=('Generate PDF, MS Word and Excel documents from templates '
                  'in Django.'),
     long_description=readme + '\n\n' + history,

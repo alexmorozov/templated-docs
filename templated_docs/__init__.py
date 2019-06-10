@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from multiprocessing import Process, Queue
+import multiprocessing
 import os.path
 import re
 from tempfile import NamedTemporaryFile
@@ -24,7 +24,7 @@ from pylokit import Office
 import logging
 log = logging.getLogger(__name__)
 
-__version__ = '0.3.2'
+__version__ = '0.3.3'
 
 
 IMAGES_CONTEXT_KEY = '_templated_docs_imgs'
@@ -77,12 +77,12 @@ def find_template_file(template_name):
     raise TemplateDoesNotExist(template_name)
 
 
-def _convert_subprocess(filename, format, result_queue, options=None):
-    """
-    Subprocess helper to convert a file via LOKit.
+def _convert_file(filename, format, result_queue=None, options=None):
+    """Helper function to convert a file via LOKit.
 
-    We need it until LO doesn't crash randomly after conversion, terminating
-    the calling process as well.
+    This function can be called via subprocess so that in the event of LO
+    crashing randomly after conversion, it will not terminate the parent
+    process. This is assisted by inserting the result into a Queue object.
     """
     lo_path = getattr(
         settings,
@@ -95,10 +95,22 @@ def _convert_subprocess(filename, format, result_queue, options=None):
         with lo.documentLoad(filename) as doc:
             doc.saveAs(str(conv_file.name), options=options)
         os.unlink(filename)
-    result_queue.put(conv_file.name)
+
+    # type comparison is required instead of isinstance owing to
+    # multiprocessing.Queue is a method
+    if type(result_queue) == multiprocessing.queues.Queue:
+        result_queue.put(conv_file.name)
+    else:
+        return conv_file.name
 
 
-def fill_template(template_name, context, output_format='odt', options=None):
+def fill_template(
+    template_name,
+    context,
+    output_format='odt',
+    options=None,
+    separate_process=True,
+):
     """Fill a document with data and convert it to the requested format.
 
     Returns an absolute path to the generated file.
@@ -106,15 +118,18 @@ def fill_template(template_name, context, output_format='odt', options=None):
     Supported output format:
         Text documents: doc, docx, fodt, html, odt, ott, pdf, txt, xhtml, png
         Spreadsheets: csv, fods, html, ods, ots, pdf, xhtml, xls, xlsx, png
-        Presentations: fodp, html, odg, odp, otp, pdf, potm, pot, pptx, pps, ppt, svg, swf, xhtml, png
+        Presentations: fodp, html, odg, odp, otp, pdf, potm, pot, pptx, pps,
+                       ppt, svg, swf, xhtml, png
         Drawings: fodg, html, odg, pdf, svg, swf, xhtml, png
 
-    More on filter options, https://wiki.openoffice.org/wiki/Documentation/DevGuide/Spreadsheets/Filter_Options
+    More on filter options,
+    https://wiki.openoffice.org/wiki/Documentation/DevGuide/Spreadsheets/Filter_Options  # noqa: E501
 
     :param template_name: the path to template, in OpenDocument format
     :param context: the context to be used to inject content
     :param output_format: the output format
     :param options: value of filterOptions in libreofficekit
+    :param separate_process: allow LO to
 
     :return:
     """
@@ -163,10 +178,19 @@ def fill_template(template_name, context, output_format='odt', options=None):
     dest.close()
 
     if source_extension[1:] != output_format:
-        results = Queue()
-        convertor = Process(target=_convert_subprocess,
-                            args=(str(dest_file.name), output_format, results, options))
-        convertor.start()
-        return results.get()
+        if separate_process:
+            results = multiprocessing.Queue()
+            converter = multiprocessing.Process(
+                target=_convert_file,
+                args=(str(dest_file.name), output_format, results, options),
+            )
+            converter.start()
+            return results.get()
+        else:
+            return _convert_file(
+                filename=str(dest_file.name),
+                format=output_format,
+                options=options,
+            )
     else:
         return dest_file.name
