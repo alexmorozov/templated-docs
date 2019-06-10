@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from multiprocessing import Process, Queue
+import multiprocessing
 import os.path
 import re
 from tempfile import NamedTemporaryFile
@@ -96,7 +96,8 @@ def _convert_file(filename, format, result_queue=None, options=None):
             doc.saveAs(str(conv_file.name), options=options)
         os.unlink(filename)
 
-    if isinstance(result_queue, Queue):
+    # type comparison is required instead of isinstance owing to multiprocessing.Queue is a method
+    if type(result_queue) == multiprocessing.queues.Queue:
         result_queue.put(conv_file.name)
     else:
         return conv_file.name
@@ -169,8 +170,8 @@ def fill_template(template_name, context, output_format='odt', options=None, sep
 
     if source_extension[1:] != output_format:
         if separate_process:
-            results = Queue()
-            converter = Process(target=_convert_file,
+            results = multiprocessing.Queue()
+            converter = multiprocessing.Process(target=_convert_file,
                                 args=(str(dest_file.name), output_format, results, options))
             converter.start()
             return results.get()
