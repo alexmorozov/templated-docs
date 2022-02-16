@@ -1,5 +1,5 @@
 language: python
-python: 3.5
+python: 3.8
 env:
   global:
     LO_VERSION=5.1.1.3
