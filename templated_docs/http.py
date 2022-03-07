@@ -1,8 +1,6 @@
 # --coding: utf8--
-
 import os
 import mimetypes
-
 from django.http import HttpResponse
 
 

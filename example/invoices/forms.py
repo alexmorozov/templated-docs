@@ -1,7 +1,5 @@
 #--coding: utf8--
-
 from django import forms
-
 from invoices.models import Customer
 
 

@@ -1,10 +1,7 @@
 #--coding: utf8--
-
 from django.shortcuts import render
-
 from templated_docs import fill_template
 from templated_docs.http import FileResponse
-
 from invoices.forms import InvoiceForm
 
 
