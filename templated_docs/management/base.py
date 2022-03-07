@@ -1,9 +1,6 @@
 # --coding: utf8--
-
 import os
-
 from django.core.management.base import BaseCommand
-
 from templated_docs import fill_template
 
 
@@ -12,7 +9,6 @@ class DocumentGenerationCommand(BaseCommand):
     A management command which generates a document using the context specified
     in the ``get_document_context()`` method.
     """
-
     def add_arguments(self, parser):
         parser.add_argument('template_name', type=str)
         parser.add_argument('--format', type=str, default='odt',

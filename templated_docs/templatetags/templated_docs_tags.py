@@ -1,11 +1,11 @@
 # --coding: utf8--
-
 import os.path
-
+from typing import Any
 from django.db.models.fields.files import ImageFieldFile
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from django import template
+
 register = template.Library()
 
 PIXEL_TO_CM = 0.00846666
@@ -23,7 +23,7 @@ class ImageNode(template.Node):
                     'Image argument should be an ImageField')
             images = context.dicts[0].setdefault('ootemplate_imgs', {})
 
-            id = len(images)
+            id = len(images)  # noqa
             z_index = id + 3  # Magic
             width = self.value.width * PIXEL_TO_CM
             height = self.value.height * PIXEL_TO_CM
@@ -48,6 +48,8 @@ def image(parser, token):
     """
     Insert an image from a ImageField into a document.
     """
+    tag_name: Any = None
+
     try:
         tag_name, value = token.split_contents()
     except ValueError:
