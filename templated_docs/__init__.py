@@ -54,6 +54,8 @@ def fix_inline_tags(content):
         text = text.replace('<text:s/>', ' ')
         text = text.replace('&apos;', "'")
         text = text.replace('&quot;', '"')
+        text = text.replace('&gt;', '>')
+        text = text.replace('&lt;', '<')
         return re.sub(r'<[^>]+>', '', text)
 
     django_tag_re = r'(\{[\{\%].+?[\%\}]\})'
