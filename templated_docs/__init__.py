@@ -8,7 +8,7 @@ from django.conf import settings
 from django.template import Template, Context, engines
 from django.utils.encoding import smart_bytes, smart_str
 from django.template.exceptions import TemplateDoesNotExist
-from pylokit import Office
+from pylokit import Office, LoKitImportError
 import logging
 
 log = logging.getLogger(__name__)
@@ -67,7 +67,7 @@ def find_template_file(template_name):
     raise TemplateDoesNotExist(template_name)
 
 
-def _convert_file(filename, format, result_queue=None, options=None):
+def _convert_file(filename, format, result_queue=None, options=None):  # noqa
     """Helper function to convert a file via LOKit.
 
     This function can be called via subprocess so that in the event of LO
@@ -79,21 +79,30 @@ def _convert_file(filename, format, result_queue=None, options=None):
         'TEMPLATED_DOCS_LIBREOFFICE_PATH',
         '/usr/lib/libreoffice/program/')
 
-    with Office(lo_path) as lo:
-        conv_file = NamedTemporaryFile(
-            delete=False,
-            suffix='.%s' % format
-        )
+    try:
+        with Office(lo_path) as lo:
+            conv_file = NamedTemporaryFile(
+                delete=False,
+                suffix='.%s' % format
+            )
 
-        with lo.documentLoad(filename) as doc:
-            doc.saveAs(str(conv_file.name), options=options)
+            with lo.documentLoad(filename) as doc:
+                doc.saveAs(str(conv_file.name), options=options)
 
-        os.unlink(filename)
+            os.unlink(filename)
 
-    if result_queue is not None:
-        result_queue.put(conv_file.name)
-    else:
-        return conv_file.name
+        if result_queue is not None:
+            result_queue.put(conv_file.name)
+        else:
+            return conv_file.name
+    except LoKitImportError as exc:
+        log.exception('Failed to load file: %s', exc)
+
+        raise exc
+    except Exception as exc:
+        log.exception('Failed to convert %s to %s', filename, format)
+
+        raise exc
 
 
 def fill_template(
